@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 
 //Interface for an individual game object returned from the rawg.io API
-interface Game {
+export interface Game {
   id: number;
   name: string;
+  background_image: string;
 }
 
 //Interface for the array of game objects returned from the rawg.io API
