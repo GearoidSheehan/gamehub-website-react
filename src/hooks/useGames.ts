@@ -2,11 +2,18 @@ import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 
-//Interface for an individual game object returned from the rawg.io API
+export interface Platform {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+//Interface for an individual game object returned from the rawg.io API, exported to be used elsewhere
 export interface Game {
   id: number;
   name: string;
   background_image: string;
+  parent_platforms: { platform: Platform }[];
 }
 
 //Interface for the array of game objects returned from the rawg.io API
