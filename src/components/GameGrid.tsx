@@ -1,12 +1,19 @@
 import { SimpleGrid, Text } from "@chakra-ui/react";
 import { useGames } from "../hooks/useGames";
 import GameCard from "./GameCard";
+import GameCardContainer from "./GameCardContainer";
+import GameCardSkeleton from "./GameCardSkeleton";
 
 const GameGrid = () => {
   //Hook to make rawg.io API call
-  const { games, error } = useGames();
+  const { games, error, isLoading } = useGames();
+  const skeletons = [1, 2, 3, 4, 5, 6];
+
   return (
-    //If error occurs in rawg.io API call then show error text. Otherwise show return from API as a list
+    /*
+      If error occurs in rawg.io API call then show error text. Otherwise show 
+      return from API as a list. Show skeletons if isLoading state is true.
+    */
     <>
       {error && <Text>{error}</Text>}
       <SimpleGrid
@@ -14,8 +21,16 @@ const GameGrid = () => {
         padding={10}
         spacing={10}
       >
+        {isLoading &&
+          skeletons.map((skeleton) => (
+            <GameCardContainer key={skeleton}>
+              <GameCardSkeleton key={skeleton} />{" "}
+            </GameCardContainer>
+          ))}
         {games.map((game) => (
-          <GameCard key={game.id} game={game} />
+          <GameCardContainer key={game.id}>
+            <GameCard key={game.id} game={game} />
+          </GameCardContainer>
         ))}
       </SimpleGrid>
     </>

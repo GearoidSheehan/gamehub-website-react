@@ -1,4 +1,5 @@
-import { HStack, Icon, Text } from "@chakra-ui/react";
+import { HStack, Icon } from "@chakra-ui/react";
+import { IconType } from "react-icons";
 import { Platform } from "../hooks/useGames";
 import { MdPhoneIphone } from "react-icons/md";
 import { SiNintendo } from "react-icons/si";
@@ -11,7 +12,6 @@ import {
   FaLinux,
   FaAndroid,
 } from "react-icons/fa";
-import { IconType } from "react-icons";
 
 interface Props {
   platforms: Platform[];
@@ -39,7 +39,7 @@ const PlatformIconList = ({ platforms }: Props) => {
     //HStack aligns items horizontally. Row is also an alias for HStack. Positioned at the right hand side of screen with padding.
     <HStack marginY={"10px"}>
       {platforms.map((platform) => (
-        <Icon as={iconMap[platform.slug]} color="gray.500" />
+        <Icon as={iconMap[platform.slug]} color="gray.500" key={platform.id} />
       ))}
     </HStack>
   );

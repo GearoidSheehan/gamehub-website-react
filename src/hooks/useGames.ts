@@ -14,6 +14,7 @@ export interface Game {
   name: string;
   background_image: string;
   parent_platforms: { platform: Platform }[];
+  metacritic: number;
 }
 
 //Interface for the array of game objects returned from the rawg.io API
@@ -27,6 +28,9 @@ export const useGames = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState("");
 
+  //Saving the state of the loading of the games
+  const [isLoading, setLoading] = useState(false);
+
   //API call to the rawg.io API to get the array of games, with error handling
   useEffect(() => {
     /*
@@ -37,12 +41,20 @@ export const useGames = () => {
     */
     const controller = new AbortController();
 
+    setLoading(true);
+
     apiClient
       .get<FetchGamesResponse>("/games", { signal: controller.signal })
-      .then((res) => setGames(res.data.results))
+      .then((res) => {
+        setGames(res.data.results);
+
+        //Below line should be done in the final method but not working with strict mode on for some reason
+        setLoading(false);
+      })
       .catch((err) => {
         if (err instanceof CanceledError) return;
         setError(err.message);
+        setLoading(false);
       });
 
     return () => controller.abort();
@@ -50,5 +62,5 @@ export const useGames = () => {
     //The array below is an array of dependencies. This prevents constant calls to the backend.
   }, []);
 
-  return { games, error };
+  return { games, error, isLoading };
 };
