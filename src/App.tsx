@@ -7,14 +7,16 @@ import GenreList from "./components/GenreList";
 
 function App() {
   return (
+    //1fr (1 Fraction) causes the column to stretch at take up all the available space
     <Grid
       templateAreas={{ base: `"nav" "main"`, lg: `"nav nav" "aside main"` }}
+      templateColumns={{ base: "1fr", lg: "200px 1fr" }}
     >
       <GridItem area="nav">
         <NavBar />
       </GridItem>
       <Show above="lg">
-        <GridItem area="aside">
+        <GridItem area="aside" paddingX={5}>
           <GenreList />
         </GridItem>
       </Show>
