@@ -1,4 +1,4 @@
-import useData from "./useData";
+import genres from "../data/genres";
 
 //Interface for an individual genre object returned from the rawg.io API
 export interface Genre {
@@ -7,6 +7,6 @@ export interface Genre {
   image_background: string;
 }
 
-const useGenres = () => useData<Genre>("/genres");
+const useGenres = () => ({ data: genres, isLoading: false, error: null });
 
 export default useGenres;

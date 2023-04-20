@@ -18,6 +18,11 @@ interface Props {
 const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
   const { data, isLoading, error } = useGenres();
 
+  /*
+    Next two lines are technically redundant as the genres data is now static,
+    as opposed to being retrieved from the server.
+  */
+
   //If an error is returned then return nothing to the side panel
   if (error) return null;
 
