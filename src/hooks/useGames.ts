@@ -25,6 +25,7 @@ const useGames = (gameQuery: GameQuery) =>
         genres: gameQuery.genre?.id,
         parent_platforms: gameQuery.platform?.id,
         ordering: gameQuery.sortOrder,
+        search: gameQuery.searchText,
       },
     },
     //Added as dependencies so that when an id changes, the data is refetched
